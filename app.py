@@ -152,13 +152,12 @@ if st.session_state.user_name:
         u_in = st.chat_input("How can I assist you with your health today?")
         if u_in:
             u_lower = u_in.lower()
-            # 1. ULTRA-ROBUST EMERGENCY DETECTION
+            # 1. ULTRA-ROBUST EMERGENCY DETECTION (ENGLISH ONLY)
             EMG_PATTERNS = [
                 "chest pain", "heart pain", "heart attack", "breathing difficulty", "heavy chest", "stroke", "seizure", "poison",
-                "dil me", "dil mein", "dil mai", "dil pe", "dil par", "seene me", "seene mein", "seene pe", "seene par", "chati me", "chati mein",
-                "dard", "taklif", "saans nahi", "sans nahi", "khoon", "khun", "behosh", "daura", "emergency", "ambulance"
+                "emergency", "ambulance", "911", "hospital", "er", "choking", "unconscious", "bleeding"
             ]
-            is_urgent = (any(c in u_lower for c in ["seene", "seena", "chati", "dil", "chest"]) and any(p in u_lower for p in ["dard", "pain", "taklif"]))
+            is_urgent = (any(c in u_lower for c in ["chest", "heart"]) and any(p in u_lower for p in ["pain", "attack", "heavy", "trouble"]))
             if any(k in u_lower for k in EMG_PATTERNS) or is_urgent:
                 st.session_state.emergency_flag = True
             
@@ -176,7 +175,7 @@ if st.session_state.user_name:
             else:
                 detail_instruction = "Explain like a friendly story for a 10-year-old using (i), (ii) pointers."
 
-            prompt = f"Identify as Professional Medical Assistant MediGuide AI. Query: {u_in}. Context: {ctx}. {detail_instruction}. Rules: Answer strictly in user's language (Hinglish/English). Address user as 'Aap' (You). NEVER use 'I' (Main/Mere) for user symptoms. Use (i)(ii) pointers."
+            prompt = f"Identify as Professional Medical Assistant MediGuide AI. Query: {u_in}. Context: {ctx}. {detail_instruction}. Rules: Answer strictly in English. NO Hinglish or Hindi. Address the user politely as 'You'. NEVER use 'I' when describing the user's symptoms. Use (i)(ii) pointers."
             resp = llm.invoke(prompt).content.replace("**", "").replace("*", "").strip()
             
             st.session_state.chat_session.append({"role": "bot", "content": resp})
