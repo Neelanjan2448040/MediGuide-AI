@@ -68,7 +68,7 @@ with st.sidebar:
                 history = db.get_chat_history(u_input)
                 if history: st.session_state.chat_session = [{"role": r, "content": c} for r, c in history]
                 else:
-                    msg = f"Welcome {u_input}. Your session is now secure and encrypted."
+                    msg = f"Welcome {u_input}."
                     st.session_state.chat_session.append({"role": "bot", "content": msg})
                     db.save_chat_message(u_input, "bot", msg)
                 st.rerun()
@@ -175,7 +175,7 @@ if st.session_state.user_name:
             else:
                 detail_instruction = "Explain like a friendly story for a 10-year-old using (i), (ii) pointers."
 
-            prompt = f"Identify as Professional Medical Assistant MediGuide AI. Query: {u_in}. Context: {ctx}. {detail_instruction}. Rules: Answer strictly in English. NO Hinglish or Hindi. Address the user politely as 'You'. NEVER use 'I' when describing the user's symptoms. Use (i)(ii) pointers."
+            prompt = f"Identify as Professional Medical Assistant MediGuide AI. Query: {u_in}. Context: {ctx}. {detail_instruction}. Rules: Answer strictly in English. NO Hinglish or Hindi. Address the user politely by their name, {st.session_state.user_name}. NEVER use 'I' when describing the user's symptoms. Use (i)(ii) pointers."
             resp = llm.invoke(prompt).content.replace("**", "").replace("*", "").strip()
             
             st.session_state.chat_session.append({"role": "bot", "content": resp})
