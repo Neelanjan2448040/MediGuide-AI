@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import re
 import pandas as pd
 import plotly.express as px
 from datetime import datetime
@@ -154,11 +155,13 @@ if st.session_state.user_name:
             u_lower = u_in.lower()
             # 1. ULTRA-ROBUST EMERGENCY DETECTION (ENGLISH ONLY)
             EMG_PATTERNS = [
-                "chest pain", "heart pain", "heart attack", "breathing difficulty", "heavy chest", "stroke", "seizure", "poison",
-                "emergency", "ambulance", "911", "hospital", "er", "choking", "unconscious", "bleeding"
+                r"\bchest pain\b", r"\bheart pain\b", r"\bheart attack\b", r"\bbreathing difficulty\b", r"\bheavy chest\b", r"\bstroke\b", r"\bseizure\b", r"\bpoison",
+                r"\bemergency\b", r"\bambulance\b", r"\b911\b", r"\bhospital\b", r"\ber\b", r"\bchoking\b", r"\bunconscious\b", r"\bbleeding\b"
             ]
-            is_urgent = (any(c in u_lower for c in ["chest", "heart"]) and any(p in u_lower for p in ["pain", "attack", "heavy", "trouble"]))
-            if any(k in u_lower for k in EMG_PATTERNS) or is_urgent:
+            is_urgent = (any(re.search(r"\b" + c + r"\b", u_lower) for c in ["chest", "heart"]) and 
+                         any(re.search(r"\b" + p, u_lower) for p in ["pain", "attack", "heavy", "trouble"]))
+            
+            if any(re.search(p, u_lower) for p in EMG_PATTERNS) or is_urgent:
                 st.session_state.emergency_flag = True
             
             st.session_state.chat_session.append({"role": "user", "content": u_in})
