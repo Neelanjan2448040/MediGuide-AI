@@ -52,5 +52,18 @@ project/
 - **Emergencies**: Any mention of chest pain or acute symptoms will trigger the Emergency Guard.
 - **Analytics**: Visit the Analytics tab to see a registry of all scheduled consultations.
 
+## ☁️ Deployment to Streamlit Cloud
+
+1. Push this repository to GitHub.
+2. Go to [share.streamlit.io](https://share.streamlit.io/) and create a "New App" linked to your repository.
+3. **CRITICAL STEP: Adding Secrets**
+   Since `.env` is ignored by GitHub for security, you MUST add your API key directly in Streamlit:
+   - Click on **Advanced settings** before deploying (or "Manage App" -> "Settings" -> "Secrets" if already deployed).
+   - Paste your key in TOML format:
+     ```toml
+     GROQ_API_KEY = "your_groq_api_key_here"
+     ```
+4. Click **Deploy**.
+
 ---
 *Disclaimer: MediGuide AI provides informational guidance only and is not a clinical surrogate. For life-threatening emergencies, always call 911 or visit the nearest ER.*
