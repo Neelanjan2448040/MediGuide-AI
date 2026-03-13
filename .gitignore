@@ -12,9 +12,10 @@ ENV/
 .env.example
 
 # App Data (Personal/Sensitive)
-database/
-data/
 *.db
+database/*.db
+data/documents/*
+!data/documents/.gitkeep
 faiss_index/
 
 # Streamlit
