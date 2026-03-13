@@ -1,0 +1,14 @@
+streamlit
+langchain
+langchain-community
+langchain-groq
+rank_bm25
+plotly
+pyvis
+networkx
+duckduckgo-search
+pypdf
+fpdf2
+python-dotenv
+pandas
+    

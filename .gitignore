@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+env/
+venv/
+ENV/
+
+# Environment Variables
+.env
+.env.example
+
+# App Data (Personal/Sensitive)
+database/
+data/
+*.db
+faiss_index/
+
+# Streamlit
+.streamlit/
+
+# OS Files
+.DS_Store
+Thumbs.db
