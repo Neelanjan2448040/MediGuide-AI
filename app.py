@@ -178,8 +178,11 @@ if st.session_state.user_name:
             else:
                 detail_instruction = "Explain like a friendly story for a 10-year-old using (i), (ii) pointers."
 
-            prompt = f"Identify as Professional Medical Assistant MediGuide AI. Query: {u_in}. Context: {ctx}. {detail_instruction}. Rules: Answer strictly in English. NO Hinglish or Hindi. Address the user politely by their name, {st.session_state.user_name}. NEVER use 'I' when describing the user's symptoms. Use (i)(ii) pointers."
-            resp = llm.invoke(prompt).content.replace("**", "").replace("*", "").strip()
+            if "my name" in u_lower and "what" in u_lower:
+                resp = f"Hello {st.session_state.user_name}"
+            else:
+                prompt = f"Identify as Professional Medical Assistant MediGuide AI. Query: {u_in}. Context: {ctx}. {detail_instruction}. Rules: Answer strictly in English. NO Hinglish or Hindi. Address the user politely by their name, {st.session_state.user_name}. NEVER use 'I' when describing the user's symptoms. Use (i)(ii) pointers."
+                resp = llm.invoke(prompt).content.replace("**", "").replace("*", "").strip()
             
             st.session_state.chat_session.append({"role": "bot", "content": resp})
             db.save_chat_message(st.session_state.user_name, "bot", resp)
