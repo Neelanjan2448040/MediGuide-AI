@@ -1,11 +1,13 @@
 # MediGuide AI – Intelligent Health Assistant
 
+**🌍 Live Demo:** [https://mediguide-ai-5c6mvgqmktcwkwvtuckwhn.streamlit.app/](https://mediguide-ai-5c6mvgqmktcwkwvtuckwhn.streamlit.app/)
+
 MediGuide AI is a premium, full-stack AI health dashboard built for professional medical assistance. It features a robust multi-modal architecture with real-time emergency detection, persistent memory, and advanced analytics.
 
 ## 🚀 Key Features
 - **Intelligent RAG Assistant**: Securely analyzes medical PDFs and provides grounded clinical guidance using Groq (LLAMA 3.3).
-- **Emergency Guard**: Real-time detection of critical symptoms (English/Hinglish) with high-visibility red alerts.
-- **Multilingual Support**: Seamlessly transitions between English and Hinglish to suit user preference.
+- **Emergency Guard**: Real-time detection of critical symptoms with highly accurate regex word-boundary triggers and high-visibility red alerts.
+- **English-Centric Intelligence**: Formal, highly accurate responses focused exclusively on clinical English.
 - **Response Modes**: Toggle between **Concise**, **Detailed** (Dietary plans), and **Explain Like I'm 10** for varied scenarios.
 - **Consultation Registry**: Integrated SQLite booking system to track and manage clinical appointments.
 - **Intelligence Dashboard**: Advanced Plotly visualizations for population health trends and system coverage.
