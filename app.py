@@ -167,6 +167,14 @@ if st.session_state.user_name:
             st.session_state.chat_session.append({"role": "user", "content": u_in})
             db.save_chat_message(st.session_state.user_name, "user", u_in)
             
+            # Topic Logging for Analytics
+            topic = "General Health"
+            if any(x in u_lower for x in ["diet", "food", "eat", "nutrition", "weight"]): topic = "Diet & Nutrition"
+            elif any(x in u_lower for x in ["pain", "hurt", "ache", "emergency", "severe"]): topic = "Symptoms & Pain"
+            elif any(x in u_lower for x in ["fever", "cough", "cold", "flu", "dengue"]): topic = "Common Illness"
+            elif any(x in u_lower for x in ["heart", "blood", "sugar", "diabetes", "bp"]): topic = "Chronic Conditions"
+            db.log_topic(topic)
+            
             ctx = rag.retrieve_context(u_in)
             if not ctx: ctx = [search.search_web(u_in)]
             llm = get_llm()
